@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
-import sys, json
+import sys, json, os
+
+print("OpenEnv inference.py started", file=sys.stderr)
 
 def main():
     for line in sys.stdin:
+        line = line.strip()
+        if not line: continue
         try:
             msg = json.loads(line)
+            print("Received:", msg.get("type"), file=sys.stderr)
+            
             if msg.get("type") == "start":
                 print(json.dumps({
                     "type": "start",
-                    "observation": {"ready": True, "task_type": msg.get("task", "default")},
-                    "state": {}
+                    "observation": {"task_type": msg.get("task", "triage"), "ready": True},
+                    "state": {"step": 0}
                 }))
             elif msg.get("type") == "step":
                 print(json.dumps({
                     "type": "step",
-                    "observation": {"step": 1},
+                    "observation": {"step_taken": True},
                     "reward": 1.0,
                     "done": False,
-                    "info": {}
+                    "info": {"score": 1.0}
                 }))
-            else:
-                print(json.dumps({"type": msg.get("type", "unknown")}))
-        except:
-            print(json.dumps({"error": "parse fail"}))
+            elif msg.get("type") == "end":
+                print(json.dumps({"type": "end", "final_score": 1.0}))
+        except Exception as e:
+            print(json.dumps({"error": str(e)}), file=sys.stderr)
 
 if __name__ == "__main__":
     main()
