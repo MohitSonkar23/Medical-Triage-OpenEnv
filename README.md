@@ -1,6 +1,6 @@
 ---
 title: Medical Triage OpenEnv 🏥
-sdk: static
+sdk: docker
 app_port: 8080
 ---
 
