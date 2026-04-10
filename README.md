@@ -1,7 +1,7 @@
 ---
 title: Medical Triage OpenEnv 🏥
 sdk: static
-app_port: 7860
+app_port: 8080
 ---
 
 # Medical Triage OpenEnv
