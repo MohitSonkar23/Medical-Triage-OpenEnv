@@ -1,0 +1,14 @@
+name: medical-triage
+version: 1.0.0
+description: "Medical triage environment with 3 tasks: Triage Priority, ER Queue Management, Treatment Planning"
+tasks:
+  - name: triage_priority
+    description: "Classify patient urgency as GREEN/YELLOW/RED"
+    expected_score: 0.3-0.7
+  - name: er_queue_management
+    description: "Manage priority queue of 5 deteriorating patients"
+    expected_score: 0.1-0.4
+  - name: treatment_planning
+    description: "Select diagnosis, treatment, and dosage"
+    expected_score: 0.0-0.2
+max_steps: 20
